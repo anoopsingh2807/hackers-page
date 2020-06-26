@@ -1,0 +1,199 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <link rel="icon" href="img/favicon.ico"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, minimum-scale=1.0"/>
+    <meta name="theme-color" content="#000000"/>
+    <meta
+            name="description"
+            content="The original HackerTyper. Turning all your hacker dreams into pseudo reality since 2011."
+    />
+    <link rel="apple-touch-icon" href="img/logo192.png"/>
+    <link rel="manifest" href="manifest.json"/>
+    <link rel="stylesheet" href="./main.css?v=1.22"/>
+    <title>Hacker Typer</title>
+    <noscript>
+        <div><img src="https://mc.yandex.ru/watch/57373914" style="position:absolute; left:-9999px;" alt=""/></div>
+    </noscript>
+</head>
+<body>
+<div id="font_div"></div>
+<div id="main" class="main theme_color">
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <textarea id="hidden_text" class="hidden_text">Click here to begin</textarea>
+    <pre><span id="typer" class="typer"></span><span id="cursor">|</span><div id="bottom_padding"
+                                                                              class="bottom_padding"></div></pre>
+</div>
+<div id="footer" class="footer theme_border_color">
+    <div class="hamburger" onclick="showMenu()">
+        <div class="theme_bg_color"></div>
+        <div class="theme_bg_color"></div>
+        <div class="theme_bg_color"></div>
+    </div>
+    <div class="mobile_links">
+<!--        <a href="https://twitter.com/duiker101" class="twitter_link">-->
+<!--            <svg class="theme_fill_color" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">-->
+<!--                <path d="m0 0h400v400h-400z" fill="none"/>-->
+<!--                <path d="m153.62 301.59c94.34 0 145.94-78.16 145.94-145.94 0-2.22 0-4.43-.15-6.63a104.36 104.36 0 0 0 25.59-26.55 102.38 102.38 0 0 1 -29.46 8.07 51.47 51.47 0 0 0 22.55-28.37 102.79 102.79 0 0 1 -32.57 12.45 51.34 51.34 0 0 0 -87.41 46.78 145.62 145.62 0 0 1 -105.71-53.59 51.33 51.33 0 0 0 15.88 68.47 50.91 50.91 0 0 1 -23.28-6.42v.65a51.31 51.31 0 0 0 41.15 50.28 51.21 51.21 0 0 1 -23.16.88 51.35 51.35 0 0 0 47.92 35.62 102.92 102.92 0 0 1 -63.7 22 104.41 104.41 0 0 1 -12.21-.74 145.21 145.21 0 0 0 78.62 23"-->
+<!--                />-->
+<!--            </svg>-->
+<!--        </a>-->
+        <a target="_blank" rel="noopener noreferrer" href='' class="sitepoint dynamic-link"></a>
+    </div>
+    <div class="footer_links">
+        <a href="#" onclick="showModal(settings)">Settings</a>
+        <a href="#" onclick="showModal(help)">Help</a>
+        <a href="#" onclick="showModal(about)">About</a>
+        <a target="_blank" rel="noopener noreferrer" href='https://twitter.com/Duiker101'>Follow me</a>
+        <a target="_blank" rel="noopener noreferrer" href='' class="sitepoint dynamic-link"></a>
+    </div>
+    <div></div>
+    <div><a onclick="closeFooter()" href="#">X</a></div>
+</div>
+
+<div id="overlay" class="overlay">
+    <div id="settings" class="modal theme_color theme_border_color">
+        <div><h2>Settings</h2></div>
+        <div class="settings_row">
+            <div>Color</div>
+            <div class="color_selector">
+                <div class="color_block" style="background:#00ff00" onclick="chooseColor('#00ff00')"></div>
+                <div class="color_block" style="background:#ff0000" onclick="chooseColor('#ff0000')"></div>
+                <div class="color_block" style="background:#0000ff" onclick="chooseColor('#0000ff')"></div>
+                <div class="color_block" style="background:#9a00ff" onclick="chooseColor('#9a00ff')"></div>
+                <div class="color_block" style="background:#ffff00" onclick="chooseColor('#ffff00')"></div>
+                <div class="color_block" style="background:#ffa500" onclick="chooseColor('#ffa500')"></div>
+            </div>
+            <input id="theme_color_input" class="theme_border_color" type="text" value="#00ff00"/>
+        </div>
+        <div class="settings_row">
+            <div>Speed</div>
+            <input id="speed_range" class="theme_bg_color" type="range" min="1" max="10" value="3"/>
+            <input id="speed_input" class="theme_border_color" type="text" value="3"/>
+        </div>
+        <div class="settings_row">
+            <div>Font Size</div>
+            <input id="font_size_range" class="theme_bg_color" type="range" min="10" max="30" value="12"/>
+            <input id="font_size_input" class="theme_border_color" type="text" value="12"/>
+        </div>
+        <div class="settings_row">
+            <div>Font</div>
+            <select class="theme_border_color" id="font_select">
+                <option value="Courier">Courier</option>
+                <option value="Anonymous Pro">Anonymous Pro</option>
+                <option value="Major Mono Display">Major Mono Display</option>
+                <option value="Nanum Gothic Coding">Nanum Gothic Coding</option>
+                <option value="Nova Mono">Nova Mono</option>
+                <option value="Share Tech Mono">Share Tech Mono</option>
+                <option value="Space Mono">Space Mono</option>
+                <option value="VT323">VT323</option>
+            </select>
+            <div></div>
+        </div>
+
+        <div id="file_row" class="settings_row file_row">
+            <div>File</div>
+            <input id="source_input" type="file" class="theme_border_color" onchange="onFileChange(this.files)"/>
+            <a href="#" onclick="fetchSource()">Reset</a>
+        </div>
+
+        <div class="modal_footer">
+            <a href="#" class="theme_color" onclick="hideOverlay()">Close</a>
+        </div>
+    </div>
+
+    <div id="about" class="modal theme_border_color">
+        <div><h2>About</h2></div>
+        <p>
+            Created in 2011, Hacker Typer arose from a simple desire to look
+            like the stereotypical hacker in movies and pop culture. Since
+            that time, it has brought smiles to millions of people across
+            the globe. Plus, many of you have temporarily transformed into
+            hackers yourselves, all from a few clicks on the keyboard (and
+            some programming magic behind the scenes!).
+        </p>
+
+        <p>
+            If you are one of those people, please consider donating to
+            support the project and the developer.
+        </p>
+        <p>
+            Also, if you are using Hacker Typer in any of your projects,
+            videos or images, feel free to reach out! It’s amazing to see
+            what happens when people’s creativity interacts with this site.
+        </p>
+        <p>
+            You can reach the developer here: <i>hackertyper@duiker101.net</i>
+        </p>
+        <p>
+            And please note: No, I will kindly not hack into anyone’s
+            personal property, so please skip these requests. Thanks!
+        </p>
+        <p>
+            And you can find more info at <i><a target="_blank" href="https://duiker101.net">duiker101.net</a></i>
+        </p>
+        <div class="modal_footer">
+            <a href="#" class="theme_color" onclick="hideOverlay()">Close</a>
+        </div>
+    </div>
+
+    <div id="help" class="modal theme_border_color">
+        <div><h2>Help</h2></div>
+        <p>
+            To begin, just start typing on your keyboard and
+            your hacker code will immediately appear! I strongly suggest to
+            enter full screen in your browser.
+        </p>
+        <p>
+            To enhance your experience, press <i>Shift</i> or <i>Alt</i> (or <i>Option</i> for Mac) three times.
+            <br/>
+            Press <i>Esc</i> to close any dialogs.
+        </p>
+        <p>
+            Configs can be modified in the <i>Settings</i> menu.
+        </p>
+        <p>
+            The menu bar can be dismissed with the <i>x</i> in the bottom right corner.
+            <br/>
+            Refresh the page to bring it back again.
+        </p>
+        <div class="modal_footer">
+            <a href="#" class="theme_color" onclick="hideOverlay()">Close</a>
+        </div>
+    </div>
+
+    <div id="granted" class="alert granted theme_border_color">
+        <h1>Access Granted</h1>
+    </div>
+
+    <div id="denied" class="alert denied">
+        <h1>Access Denied</h1>
+    </div>
+
+    <div id="menu" class="menu theme_border_color">
+        <a href="#" onclick="showModal(settings)">Settings</a>
+        <a href="#" onclick="showModal(help)">Help</a>
+        <a href="#" onclick="showModal(about)">About</a>
+    </div>
+</div>
+<script type="application/javascript" src="./main.js?v=1.82"></script>
+<script type="text/javascript">
+    (function (m, e, t, r, i, k, a) {
+        m[i] = m[i] || function () {
+            (m[i].a = m[i].a || []).push(arguments)
+        };
+        m[i].l = 1 * new Date();
+        k = e.createElement(t), a = e.getElementsByTagName(t)[0], k.async = 1, k.src = r, a.parentNode.insertBefore(k, a)
+    })
+    (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+    ym(57373914, "init", {
+        clickmap: true,
+        trackLinks: true,
+        accurateTrackBounce: true
+    });
+</script>
+</body>
+</html>
